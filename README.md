@@ -1,2 +1,2 @@
 # PyAPI-REST
-Multi-database REST API project base
+Authorization base project for REST API
