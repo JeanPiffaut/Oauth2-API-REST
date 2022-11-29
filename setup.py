@@ -1,8 +1,8 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='PyAPI-REST',
-    version='0.0.1',
+    name='Oauth2-API-REST',
+    version='1.0.0',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
@@ -10,5 +10,6 @@ setup(
         'flask',
         'flask-restful',
         'mysql-connector-python',
+        'google-cloud-firestore'
     ],   
 )
