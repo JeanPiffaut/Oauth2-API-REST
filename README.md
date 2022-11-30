@@ -1,2 +1,2 @@
-# Outh2-API-REST
+# Oauth2-API-REST
 Authorization base project for REST API
