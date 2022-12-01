@@ -14,8 +14,8 @@ class Session(ModelBase):
     def setId(self, session_id: SessionId):
         self._id = session_id
 
-    def setUserId(self, user_id: UserId):
-        self._user_id = user_id
+    def setUserId(self, session_user_id: UserId):
+        self._user_id = session_user_id
 
     def setToken(self, session_token: SessionToken):
         self._token = session_token
