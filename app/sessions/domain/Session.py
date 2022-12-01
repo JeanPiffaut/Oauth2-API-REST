@@ -4,12 +4,12 @@ from app.users.domain import UserId
 
 
 class Session(ModuleModel):
-    _id: SessionId
-    _user_id: UserId
-    _token: SessionToken
-    _creation_date: SessionCreationDate
-    _last_activity: SessionLastActivity
-    _life_time: SessionLifeTime
+    _id: SessionId = None
+    _user_id: UserId = None
+    _token: SessionToken = None
+    _creation_date: SessionCreationDate = None
+    _last_activity: SessionLastActivity = None
+    _life_time: SessionLifeTime = None
 
     def setId(self, session_id: SessionId):
         self._id = session_id

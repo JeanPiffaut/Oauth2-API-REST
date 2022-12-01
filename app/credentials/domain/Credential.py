@@ -5,11 +5,11 @@ from app.users.domain import UserId
 
 
 class Credential(ModuleModel):
-    _id: CredentialId
-    _user_id: UserId
-    _auth_type_id: AuthTypeId
-    _username: CredentialUsername
-    _token: CredentialToken
+    _id: CredentialId = None
+    _user_id: UserId = None
+    _auth_type_id: AuthTypeId = None
+    _username: CredentialUsername = None
+    _token: CredentialToken = None
 
     def setId(self, credential_id: CredentialId):
         self._id = credential_id
