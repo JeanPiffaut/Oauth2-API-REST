@@ -22,5 +22,4 @@ class CreateUser:
         repo = UserRepository()
         repo.createUser(user)
 
-        return []
-
+        return {'status': 'Success'}, 201
