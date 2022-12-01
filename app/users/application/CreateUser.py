@@ -14,12 +14,10 @@ class CreateUser:
     def setEmail(self, user_email: str):
         self._email = UserEmail(user_email)
 
-    def createUser(self):
+    def execute(self):
         user = User()
         user.setName(self._name)
         user.setEmail(self._email)
 
         repo = UserRepository()
-        repo.createUser(user)
-
-        return {'status': 'Success'}
+        return repo.createUser(user)

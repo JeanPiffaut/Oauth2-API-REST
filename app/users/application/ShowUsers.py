@@ -19,20 +19,21 @@ class ShowUsers:
     def setFillEmail(self, fill_email: str):
         self._email = UserEmail(fill_email)
 
-    def show(self):
+    def execute(self):
         repo = UserRepository()
         users = []
         if self._id is not None:
             result = repo.listUsersById(fill_id=self._id)
-            user = User()
-            user.from_firestore_document(result)
-            users.append(user.to_dict())
+            if result.exists:
+                user = User()
+                user.from_firestore_document(result)
+                users.append(user.to_dict())
         else:
             result = repo.listUsers(fill_name=self._name, fill_email=self._email)
-
             for doc in result:
-                user = User()
-                user.from_firestore_document(doc)
-                users.append(user.to_dict())
+                if doc.exists:
+                    user = User()
+                    user.from_firestore_document(doc)
+                    users.append(user.to_dict())
 
         return users

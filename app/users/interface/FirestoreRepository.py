@@ -25,5 +25,17 @@ class UserRepository(RepositoryModel):
 
     def createUser(self, data):
         coll = fr.collection(self._collection)
-        coll.add(data.to_dict())
+        result = coll.add(data.to_dict())
+        if result:
+            return True
+        else:
+            return False
 
+    def deleteUser(self, user_id):
+        coll = fr.collection(self._collection)
+        doc = coll.document(user_id.value)
+        result = doc.delete()
+        if result:
+            return True
+        else:
+            return False
