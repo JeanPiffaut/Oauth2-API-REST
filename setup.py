@@ -9,7 +9,7 @@ setup(
     install_requires=[
         'flask',
         'flask-restful',
-        'mysql-connector-python',
-        'google-cloud-firestore'
-    ],   
+        'python-decouple',
+        'google-cloud-firestore',
+    ],
 )
