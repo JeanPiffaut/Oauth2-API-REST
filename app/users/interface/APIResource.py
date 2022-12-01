@@ -8,6 +8,9 @@ class UserResource(Resource):
     def get(self):
         users = ShowUsers()
 
+        if request.args.get('id'):
+            users.setFillId(request.args.get('id'))
+
         if request.args.get('name'):
             users.setFillName(request.args.get('name'))
 

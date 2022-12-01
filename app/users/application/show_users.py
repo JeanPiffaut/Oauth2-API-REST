@@ -6,8 +6,12 @@ from app.users.interface.FirestoreRepository import UserRepository
 
 
 class ShowUsers:
+    _id: UserId = None
     _name: UserName = None
     _email: UserEmail = None
+
+    def setFillId(self, fill_id: str):
+        self._id = UserId(fill_id)
 
     def setFillName(self, fill_name: str):
         self._name = UserName(fill_name)
@@ -17,13 +21,18 @@ class ShowUsers:
 
     def show(self):
         repo = UserRepository()
-        result = repo.listUsers(fill_name=self._name, fill_email=self._email)
-
         users = []
-
-        for doc in result:
+        if self._id is not None:
+            result = repo.listUsersById(fill_id=self._id)
             user = User()
-            user.from_firestore_document(doc)
+            user.from_firestore_document(result)
             users.append(user.to_dict())
+        else:
+            result = repo.listUsers(fill_name=self._name, fill_email=self._email)
+
+            for doc in result:
+                user = User()
+                user.from_firestore_document(doc)
+                users.append(user.to_dict())
 
         return users

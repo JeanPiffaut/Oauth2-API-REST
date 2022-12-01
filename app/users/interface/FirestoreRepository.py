@@ -15,3 +15,11 @@ class UserRepository(RepositoryModel):
             coll = coll.where('email', '==', fill_email.value)
 
         return coll.get()
+
+    def listUsersById(self, fill_id):
+        coll = fr.collection(self._collection)
+        if fill_id.validate() is True:
+            return coll.document(fill_id.value).get()
+        else:
+            return False
+
