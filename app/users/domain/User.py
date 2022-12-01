@@ -1,4 +1,6 @@
-from app.users.domain import UserId, UserName, UserEmail
+from app.users.domain.UserEmail import UserEmail
+from app.users.domain.UserId import UserId
+from app.users.domain.UserName import UserName
 
 
 class User:
@@ -30,3 +32,13 @@ class User:
             'name': self.getName(),
             'email': self.getEmail()
         }
+
+    def from_firestore_document(self, document):
+        self.setId(UserId(document.id))
+        self.setName(UserName(document.get('name')))
+        self.setEmail(UserEmail(document.get('email')))
+
+    def from_dict(self, dict_setter):
+        self.setId(UserId(dict_setter['id']))
+        self.setName(UserName(dict_setter['name']))
+        self.setEmail(UserEmail(dict_setter['email']))

@@ -23,9 +23,7 @@ class ShowUsers:
 
         for doc in result:
             user = User()
-            user.setId(UserId(doc.id))
-            user.setName(UserName(doc.get('name')))
-            user.setEmail(UserEmail(doc.get('email')))
+            user.from_firestore_document(doc)
             users.append(user.to_dict())
 
         return users
