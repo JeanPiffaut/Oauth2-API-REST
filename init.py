@@ -8,15 +8,15 @@ from app.users import users_bp
 
 setting_module = os.getenv('APP_SETTINGS_MODULE')
 
-app = Flask(__name__)
+api = Flask(__name__)
 
 if __name__ == "__main__":
-    app.config.from_object(setting_module)
-    Api(app, catch_all_404s=True)
-    app.url_map.strict_slashes = False
+    api.config.from_object(setting_module)
+    Api(api, catch_all_404s=True)
+    api.url_map.strict_slashes = False
 
-    app.register_blueprint(users_bp)
+    api.register_blueprint(users_bp)
 
-    register_error_handlers(app)
+    register_error_handlers(api)
 
-    app.run(debug=True)
+    api.run(debug=True)

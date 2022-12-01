@@ -23,3 +23,7 @@ class UserRepository(RepositoryModel):
         else:
             return False
 
+    def createUser(self, data):
+        coll = fr.collection(self._collection)
+        coll.add(data.to_dict())
+

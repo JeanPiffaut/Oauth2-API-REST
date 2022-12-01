@@ -27,11 +27,18 @@ class User:
         return self.email.value
 
     def to_dict(self):
-        return {
-            'id': self.getId(),
-            'name': self.getName(),
-            'email': self.getEmail()
-        }
+        user_dict = {}
+
+        if self.id is not None:
+            user_dict['id'] = self.getId()
+
+        if self.name is not None:
+            user_dict['name'] = self.getName()
+
+        if self.email is not None:
+            user_dict['email'] = self.getEmail()
+
+        return user_dict
 
     def from_firestore_document(self, document):
         self.setId(UserId(document.id))

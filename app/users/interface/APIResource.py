@@ -1,7 +1,8 @@
-from flask_restful import Resource
+from flask_restful import Resource, abort
 from flask import request
 
-from app.users.application.show_users import ShowUsers
+from app.users.application.CreateUser import CreateUser
+from app.users.application.ShowUsers import ShowUsers
 
 
 class UserResource(Resource):
@@ -19,3 +20,17 @@ class UserResource(Resource):
 
         result = users.show()
         return result, 200
+
+    def post(self):
+        create = CreateUser()
+
+        if request.args.get('name') is None:
+            return {'status': 'Error', 'message': 'Faltan parametros clave'}, 403
+
+        if request.args.get('email') is None:
+            return {'status': 'Error', 'message': 'Faltan parametros clave'}, 403
+
+        create.setName(request.args.get('name'))
+        create.setEmail(request.args.get('email'))
+
+        return create.createUser()
