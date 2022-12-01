@@ -1,7 +1,7 @@
 from typing import List
 
 
-class ModelBase:
+class ModuleModel:
     _errors: List = []
 
     @property

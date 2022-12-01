@@ -1,15 +1,15 @@
 from app.auth_types.domain import AuthTypeId
-from app.common.domain.ModelBase import ModelBase
+from app.common.domain.ModuleModel import ModuleModel
 from app.credentials.domain import CredentialId, CredentialUsername, CredentialToken
 from app.users.domain import UserId
 
 
-class Credential(ModelBase):
-    _id: CredentialId
-    _user_id: UserId
-    _auth_type_id: AuthTypeId
-    _username: CredentialUsername
-    _token: CredentialToken
+class Credential(ModuleModel):
+    _id: CredentialId = None
+    _user_id: UserId = None
+    _auth_type_id: AuthTypeId = None
+    _username: CredentialUsername = None
+    _token: CredentialToken = None
 
     def setId(self, credential_id: CredentialId):
         self._id = credential_id

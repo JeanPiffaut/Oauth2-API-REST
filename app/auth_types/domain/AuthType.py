@@ -1,12 +1,12 @@
-from app.common.domain.ModelBase import ModelBase
+from app.common.domain.ModuleModel import ModuleModel
 from app.auth_types.domain import AuthTypeId, AuthTypeName, AuthTypeClientId, AuthTypeClientSecret
 
 
-class AuthType(ModelBase):
-    _id: AuthTypeId
-    _name: AuthTypeName
-    _client_id: AuthTypeClientId
-    _client_secret: AuthTypeClientSecret
+class AuthType(ModuleModel):
+    _id: AuthTypeId = None
+    _name: AuthTypeName = None
+    _client_id: AuthTypeClientId = None
+    _client_secret: AuthTypeClientSecret = None
 
     def setId(self, auth_type_id: AuthTypeId):
         self._id = auth_type_id
