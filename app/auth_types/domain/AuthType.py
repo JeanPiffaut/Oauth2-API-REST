@@ -1,8 +1,8 @@
-from app.common.domain.ModelBase import ModelBase
+from app.common.domain.ModuleModel import ModuleModel
 from app.auth_types.domain import AuthTypeId, AuthTypeName, AuthTypeClientId, AuthTypeClientSecret
 
 
-class AuthType(ModelBase):
+class AuthType(ModuleModel):
     _id: AuthTypeId
     _name: AuthTypeName
     _client_id: AuthTypeClientId

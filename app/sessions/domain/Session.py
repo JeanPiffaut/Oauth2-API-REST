@@ -1,9 +1,9 @@
-from app.common.domain.ModelBase import ModelBase
+from app.common.domain.ModuleModel import ModuleModel
 from app.sessions.domain import SessionId, SessionToken, SessionCreationDate, SessionLastActivity, SessionLifeTime
 from app.users.domain import UserId
 
 
-class Session(ModelBase):
+class Session(ModuleModel):
     _id: SessionId
     _user_id: UserId
     _token: SessionToken

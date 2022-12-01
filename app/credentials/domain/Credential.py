@@ -1,10 +1,10 @@
 from app.auth_types.domain import AuthTypeId
-from app.common.domain.ModelBase import ModelBase
+from app.common.domain.ModuleModel import ModuleModel
 from app.credentials.domain import CredentialId, CredentialUsername, CredentialToken
 from app.users.domain import UserId
 
 
-class Credential(ModelBase):
+class Credential(ModuleModel):
     _id: CredentialId
     _user_id: UserId
     _auth_type_id: AuthTypeId

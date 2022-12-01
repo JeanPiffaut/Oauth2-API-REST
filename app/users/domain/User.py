@@ -2,24 +2,31 @@ from app.users.domain import UserId, UserName, UserEmail
 
 
 class User:
-    _id: UserId
-    _name: UserName
-    _email: UserEmail
+    id: UserId = None
+    name: UserName = None
+    email: UserEmail = None
 
     def setId(self, user_id: UserId):
-        self._id = user_id
+        self.id = user_id
 
     def setName(self, user_name: UserName):
-        self._name = user_name
+        self.name = user_name
 
     def setEmail(self, user_email: UserEmail):
-        self._email = user_email
+        self.email = user_email
 
     def getId(self):
-        return self._id
+        return self.id.value
 
     def getName(self):
-        return self._name
+        return self.name.value
 
     def getEmail(self):
-        return self._email
+        return self.email.value
+
+    def to_dict(self):
+        return {
+            'id': self.getId(),
+            'name': self.getName(),
+            'email': self.getEmail()
+        }
