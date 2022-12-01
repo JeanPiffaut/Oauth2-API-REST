@@ -41,18 +41,15 @@ class UserRepository(RepositoryModel):
         coll = fr.collection(self._collection)
         doc = coll.document(user_id)
 
-        params = list
+        if doc.get().exists is False:
+            return False
+
+        params = dict()
         if data['name'] is not None:
-            params.append({
-                'paths': 'name',
-                'value': data['name']
-            })
+            params['name'] = data['name']
 
         if data['email'] is not None:
-            params.append({
-                'paths': 'email',
-                'value': data['name']
-            })
+            params['email'] = data['email']
 
         result = doc.update(params)
         if result:

@@ -32,18 +32,26 @@ class UserResource(Resource):
         create.setName(request.args.get('name'))
         create.setEmail(request.args.get('email'))
 
-        return create.execute(), 201
+        result = create.execute()
+        if result:
+            return [], 201
+        else:
+            return [], 500
 
     def put(self):
         update = UpdateUser()
 
-        if request.args.get('name'):
+        if request.args.get('name') is not None:
             update.setName(request.args.get('name'))
 
-        if request.args.get('email'):
+        if request.args.get('email') is not None:
             update.setEmail(request.args.get('email'))
 
-        return update.execute(request.args.get('id'))
+        result = update.execute(request.args.get('id'))
+        if result:
+            return [], 200
+        else:
+            return [], 500
 
     def delete(self):
         delete = DeleteUser()
