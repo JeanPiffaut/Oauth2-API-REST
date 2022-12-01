@@ -1,13 +1,14 @@
 from app.users.domain.UserId import UserId
+from app.users.domain.UserStructure import UserStructure
 from app.users.interface.FirestoreRepository import UserRepository
 
 
-class DeleteUser:
-    _id: UserId = None
+class DeleteUser(UserStructure):
 
-    def setId(self, user_id: str):
-        self._id = UserId(user_id)
+    def execute(self, fill_id):
+        user_id = UserId(fill_id)
+        if user_id.is_valid() is False:
+            return False
 
-    def execute(self):
         repo = UserRepository()
-        return repo.deleteUser(self._id)
+        return repo.deleteUser(user_id.value)

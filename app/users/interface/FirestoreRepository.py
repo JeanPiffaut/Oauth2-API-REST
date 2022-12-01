@@ -8,24 +8,21 @@ class UserRepository(RepositoryModel):
     def listUsers(self, fill_name=None, fill_email=None):
         coll = fr.collection(self._collection)
 
-        if fill_name is not None and fill_name.validate() is True:
-            coll = coll.where('name', '==', fill_name.value)
+        if fill_name is not None:
+            coll = coll.where('name', '==', fill_name)
 
-        if fill_email is not None and fill_email.validate() is True:
-            coll = coll.where('email', '==', fill_email.value)
+        if fill_email is not None:
+            coll = coll.where('email', '==', fill_email)
 
         return coll.get()
 
     def listUsersById(self, fill_id):
         coll = fr.collection(self._collection)
-        if fill_id.validate() is True:
-            return coll.document(fill_id.value).get()
-        else:
-            return False
+        return coll.document(fill_id).get()
 
     def createUser(self, data):
         coll = fr.collection(self._collection)
-        result = coll.add(data.to_dict())
+        result = coll.add(data)
         if result:
             return True
         else:
@@ -33,8 +30,31 @@ class UserRepository(RepositoryModel):
 
     def deleteUser(self, user_id):
         coll = fr.collection(self._collection)
-        doc = coll.document(user_id.value)
+        doc = coll.document(user_id)
         result = doc.delete()
+        if result:
+            return True
+        else:
+            return False
+
+    def updateUser(self, user_id, data):
+        coll = fr.collection(self._collection)
+        doc = coll.document(user_id)
+
+        params = list
+        if data['name'] is not None:
+            params.append({
+                'paths': 'name',
+                'value': data['name']
+            })
+
+        if data['email'] is not None:
+            params.append({
+                'paths': 'email',
+                'value': data['name']
+            })
+
+        result = doc.update(params)
         if result:
             return True
         else:

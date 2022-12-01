@@ -1,11 +1,15 @@
-from app.users.domain.User import User
+from app.users.domain.UserId import UserId
 from app.users.domain.UserStructure import UserStructure
 from app.users.interface.FirestoreRepository import UserRepository
 
 
-class CreateUser(UserStructure):
+class UpdateUser(UserStructure):
 
-    def execute(self):
+    def execute(self, fill_id):
+        user_id = UserId(fill_id)
+        if user_id.is_valid() is False:
+            return False
+
         if self.name.is_valid() is False:
             return False
 
@@ -13,4 +17,4 @@ class CreateUser(UserStructure):
             return False
 
         repo = UserRepository()
-        return repo.createUser(self.to_dict())
+        return repo.updateUser(user_id.value, self.to_dict())

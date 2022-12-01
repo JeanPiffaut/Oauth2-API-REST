@@ -1,35 +1,27 @@
 from app.users.domain.User import User
-from app.users.domain.UserEmail import UserEmail
 from app.users.domain.UserId import UserId
-from app.users.domain.UserName import UserName
+from app.users.domain.UserStructure import UserStructure
 from app.users.interface.FirestoreRepository import UserRepository
 
 
-class ShowUsers:
-    _id: UserId = None
-    _name: UserName = None
-    _email: UserEmail = None
+class ShowUsers(UserStructure):
 
-    def setFillId(self, fill_id: str):
-        self._id = UserId(fill_id)
+    def execute(self, fill_id=None):
 
-    def setFillName(self, fill_name: str):
-        self._name = UserName(fill_name)
-
-    def setFillEmail(self, fill_email: str):
-        self._email = UserEmail(fill_email)
-
-    def execute(self):
         repo = UserRepository()
         users = []
-        if self._id is not None:
-            result = repo.listUsersById(fill_id=self._id)
+        if fill_id is not None:
+            user_id = UserId(fill_id)
+            if user_id.is_valid() is False:
+                return False
+
+            result = repo.listUsersById(user_id.value)
             if result.exists:
                 user = User()
                 user.from_firestore_document(result)
                 users.append(user.to_dict())
         else:
-            result = repo.listUsers(fill_name=self._name, fill_email=self._email)
+            result = repo.listUsers(self.getName(), self.getEmail())
             for doc in result:
                 if doc.exists:
                     user = User()

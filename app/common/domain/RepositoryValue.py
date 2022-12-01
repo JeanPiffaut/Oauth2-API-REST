@@ -10,15 +10,19 @@ class RepositoryValue:
 
     @property
     def value(self):
+        if self._value is None:
+            return None
+
         value_type = self._value_type
         value = value_type(self._value)
         return value
 
     @value.setter
     def value(self, obj_val):
-        self._value = str(obj_val)
+        if obj_val is not None:
+            self._value = str(obj_val)
 
-    def validate(self):
+    def is_valid(self):
         try:
             value_type = self._value_type
             value_type(self._value)
