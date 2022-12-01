@@ -1,3 +1,4 @@
+import datetime
 from dataclasses import dataclass
 
 
@@ -24,7 +25,7 @@ class RepositoryValue:
         except ValueError:
             return False
 
-        if len(self._value) > self._length:
+        if self._length is not None and self._length < len(self._value):
             return False
 
         return True
@@ -67,3 +68,10 @@ class RepoBool(RepositoryValue):
         self.value = value
         self._length = 1
         self._value_type = bool
+
+
+@dataclass
+class RepoDatetime(RepositoryValue):
+    def __int__(self, value):
+        self.value = value
+        self._value_type = datetime

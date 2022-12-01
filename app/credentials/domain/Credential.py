@@ -14,11 +14,11 @@ class Credential(ModelBase):
     def setId(self, credential_id: CredentialId):
         self._id = credential_id
 
-    def setUserId(self, user_id: UserId):
-        self._user_id = user_id
+    def setUserId(self, credential_user_id: UserId):
+        self._user_id = credential_user_id
 
-    def setAuthTypeId(self, auth_type_id: AuthTypeId):
-        self._auth_type_id = auth_type_id
+    def setAuthTypeId(self, credential_auth_type_id: AuthTypeId):
+        self._auth_type_id = credential_auth_type_id
 
     def setUsername(self, credential_username: CredentialUsername):
         self._username = credential_username
