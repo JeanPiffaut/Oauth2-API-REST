@@ -33,4 +33,4 @@ class UserResource(Resource):
         create.setName(request.args.get('name'))
         create.setEmail(request.args.get('email'))
 
-        return create.createUser()
+        return create.createUser(), 201
