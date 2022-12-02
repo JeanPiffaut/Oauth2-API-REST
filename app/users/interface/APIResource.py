@@ -22,14 +22,13 @@ class UserResource(Resource):
         return result, 200
 
     def post(self):
-        create = CreateUser()
-
         if request.args.get('name') is None:
             abort(400)
 
         if request.args.get('email') is None:
             abort(400)
 
+        create = CreateUser()
         create.setName(request.args.get('name'))
         create.setEmail(request.args.get('email'))
 
@@ -55,11 +54,10 @@ class UserResource(Resource):
             return [], 500
 
     def delete(self):
-        delete = DeleteUser()
-
         if request.args.get('id') is None:
             abort(400)
 
+        delete = DeleteUser()
         result = delete.execute(request.args.get('id'))
         if result:
             return [], 200
