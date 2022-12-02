@@ -25,7 +25,7 @@ class UserResource(Resource):
         create = CreateUser()
 
         if request.args.get('name') is None:
-            raise abort(400)
+            abort(400)
 
         if request.args.get('email') is None:
             return {'status': 'Error', 'message': 'Bad request'}, 400
