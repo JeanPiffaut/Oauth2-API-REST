@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from flask import request, abort
 
+from app import response_structure
 from app.users.application.CreateUser import CreateUser
 from app.users.application.DeleteUser import DeleteUser
 from app.users.application.ShowUsers import ShowUsers
@@ -8,6 +9,7 @@ from app.users.application.UpdateUser import UpdateUser
 
 
 class UserResource(Resource):
+
     def get(self):
         users = ShowUsers()
 
@@ -18,7 +20,7 @@ class UserResource(Resource):
             users.setEmail(request.args.get('email'))
 
         result = users.execute(request.args.get('id'))
-        return result, 200
+        return response_structure(200, result)
 
     def post(self):
         if request.args.get('name') is None:
@@ -33,9 +35,9 @@ class UserResource(Resource):
 
         result = create.execute()
         if result:
-            return [], 201
+            return response_structure(201)
         else:
-            return [], 500
+            return response_structure(500)
 
     def put(self):
         update = UpdateUser()
@@ -48,9 +50,9 @@ class UserResource(Resource):
 
         result = update.execute(request.args.get('id'))
         if result:
-            return [], 200
+            return response_structure(200)
         else:
-            return [], 500
+            return response_structure(500)
 
     def delete(self):
         if request.args.get('id') is None:
@@ -59,6 +61,6 @@ class UserResource(Resource):
         delete = DeleteUser()
         result = delete.execute(request.args.get('id'))
         if result:
-            return [], 200
+            return response_structure(200)
         else:
-            return [], 500
+            return response_structure(500)
