@@ -16,7 +16,7 @@ def response_structure(code_status: int, response=None, message=None):
     if response is not None:
         args['response'] = response
 
-    return jsonify(args)
+    return args, code_status
 
 
 class ExtendAPI(Api):
