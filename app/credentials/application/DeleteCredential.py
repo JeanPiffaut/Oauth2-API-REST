@@ -1,5 +1,5 @@
 from app.credentials.domain.CredentialStructure import CredentialStructure
 
 
-class Credential(CredentialStructure):
+class DeleteCredential(CredentialStructure):
     pass
