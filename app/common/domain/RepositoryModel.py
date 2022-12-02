@@ -1,2 +1,2 @@
 class RepositoryModel:
-    _collection: str
+    collection: str

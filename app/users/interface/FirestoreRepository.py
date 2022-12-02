@@ -3,7 +3,7 @@ from config.firestore import fr
 
 
 class UserRepository(RepositoryModel):
-    _collection = 'Users'
+    collection = 'Users'
 
     def listUsers(self, fill_name=None, fill_email=None):
         coll = fr.collection(self._collection)
