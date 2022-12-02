@@ -14,10 +14,6 @@ def register_error_handlers(app):
     def handle_401_error(e):
         return handle_structure('Unauthorized'), 401
 
-    @app.errorhandler(403)
-    def handle_403_error(e):
-        return handle_structure('Forbidden'), 403
-
     @app.errorhandler(405)
     def handle_405_error(e):
         return handle_structure('Method not allowed'), 405
