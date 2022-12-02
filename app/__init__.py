@@ -7,7 +7,7 @@ def register_error_handlers(app):
         return handle_structure('Internal server error', {'error': str(e)}), 500
 
     @app.errorhandler(400)
-    def handle_400_error(e=None):
+    def handle_400_error(e):
         return handle_structure('Bad Request'), 400
 
     @app.errorhandler(401)
