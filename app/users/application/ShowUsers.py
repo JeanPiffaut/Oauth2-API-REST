@@ -7,7 +7,6 @@ from app.users.interface.FirestoreRepository import UserRepository
 class ShowUsers(UserStructure):
 
     def execute(self, fill_id=None):
-
         repo = UserRepository()
         users = []
         if fill_id is not None:

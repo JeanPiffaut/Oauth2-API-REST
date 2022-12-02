@@ -1,5 +1,5 @@
-from flask_restful import Resource, abort
-from flask import request
+from flask_restful import Resource
+from flask import request, abort
 
 import app
 from app.users.application.CreateUser import CreateUser
@@ -28,7 +28,7 @@ class UserResource(Resource):
             abort(400)
 
         if request.args.get('email') is None:
-            return {'status': 'Error', 'message': 'Bad request'}, 400
+            abort(400)
 
         create.setName(request.args.get('name'))
         create.setEmail(request.args.get('email'))
@@ -58,7 +58,7 @@ class UserResource(Resource):
         delete = DeleteUser()
 
         if request.args.get('id') is None:
-            return {'status': 'Error', 'message': 'Bad request'}, 400
+            abort(400)
 
         result = delete.execute(request.args.get('id'))
         if result:
