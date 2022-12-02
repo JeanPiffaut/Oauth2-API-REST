@@ -1,42 +1,25 @@
 from flask import jsonify
+from flask_restful import Api
 
 
-def register_error_handlers(app):
-    @app.errorhandler(Exception)
-    def handle_exception_error(e):
-        return handle_structure('Internal server error', {'error': str(e)}), 500
+def response_structure(code_status: int, response=None, message=None):
+    if code_status == 200 or code_status == 201:
+        status = 'Success'
+    else:
+        status = 'Error'
 
-    @app.errorhandler(400)
-    def handle_400_error(e=None):
-        return handle_structure('Bad Request'), 400
+    args = dict()
+    args['status'] = status
+    if message is not None:
+        args['message'] = message
 
-    @app.errorhandler(401)
-    def handle_401_error(e):
-        return handle_structure('Unauthorized'), 401
+    if response is not None:
+        args['response'] = response
 
-    @app.errorhandler(403)
-    def handle_403_error(e):
-        return handle_structure('Forbidden'), 403
+    return jsonify(args)
 
-    @app.errorhandler(405)
-    def handle_405_error(e):
-        return handle_structure('Method not allowed'), 405
 
-    @app.errorhandler(403)
-    def handle_403_error(e):
-        return handle_structure('Forbidden error'), 403
+class ExtendAPI(Api):
 
-    @app.errorhandler(404)
-    def handle_404_error(e):
-        return handle_structure('Not found error'), 404
-
-    def handle_structure(msj, response: dict = None):
-        args = {
-            'status': 'error',
-            'message': msj,
-        }
-
-        if response is not None:
-            args['response'] = response
-
-        return jsonify(args)
+    def handle_error(self, e):
+        return response_structure(e.code, str(e))
