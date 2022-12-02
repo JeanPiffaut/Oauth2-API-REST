@@ -1,7 +1,6 @@
 from flask_restful import Resource
 from flask import request, abort
 
-import app
 from app.users.application.CreateUser import CreateUser
 from app.users.application.DeleteUser import DeleteUser
 from app.users.application.ShowUsers import ShowUsers
