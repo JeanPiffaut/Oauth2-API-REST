@@ -6,31 +6,31 @@ from app.common.domain.ModuleModel import ModuleModel
 
 
 class AuthTypeStructure(ModuleModel):
-    _id: AuthTypeId = None
-    _name: AuthTypeName = None
-    _client_id: AuthTypeClientId = None
-    _client_secret: AuthTypeClientSecret = None
+    id: AuthTypeId = None
+    name: AuthTypeName = None
+    client_id: AuthTypeClientId = None
+    client_secret: AuthTypeClientSecret = None
 
     def setId(self, auth_type_id):
-        self._id = AuthTypeId(auth_type_id)
+        self.id = AuthTypeId(auth_type_id)
 
     def setName(self, auth_type_name):
-        self._name = AuthTypeName(auth_type_name)
+        self.name = AuthTypeName(auth_type_name)
 
     def setClientId(self, auth_type_client_id):
-        self._client_id = AuthTypeClientId(auth_type_client_id)
+        self.client_id = AuthTypeClientId(auth_type_client_id)
 
     def setClientSecret(self, auth_type_client_secret):
-        self._client_secret = AuthTypeClientSecret(auth_type_client_secret)
+        self.client_secret = AuthTypeClientSecret(auth_type_client_secret)
 
     def getId(self):
-        return self._id.value
+        return self.id.value
 
     def getName(self):
-        return self._name.value
+        return self.name.value
 
     def getClientId(self):
-        return self._client_id.value
+        return self.client_id.value
 
     def getClientSecret(self):
-        return self._client_secret.value
+        return self.client_secret.value
