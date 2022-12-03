@@ -7,4 +7,4 @@ class CreateUser(UserStructure):
 
     def execute(self):
         repo = UserRepository()
-        return repo.createUser(self.__dict__)
+        return repo.createUser(self.to_dict())

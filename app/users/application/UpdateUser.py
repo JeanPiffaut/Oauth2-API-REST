@@ -13,4 +13,4 @@ class UpdateUser(UserStructure):
             abort(400)
 
         repo = UserRepository()
-        return repo.updateUser(user_id.value, self.__dict__)
+        return repo.updateUser(user_id.value, self.to_dict())

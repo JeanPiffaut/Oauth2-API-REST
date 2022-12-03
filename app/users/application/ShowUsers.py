@@ -20,13 +20,13 @@ class ShowUsers(UserStructure):
             if result.exists:
                 user = User()
                 user.from_firestore_document(result)
-                users.append(user.__dict__)
+                users.append(user.to_dict())
         else:
             result = repo.listUsers(self.getName(), self.getEmail())
             for doc in result:
                 if doc.exists:
                     user = User()
                     user.from_firestore_document(doc)
-                    users.append(user.__dict__)
+                    users.append(user.to_dict())
 
         return users
