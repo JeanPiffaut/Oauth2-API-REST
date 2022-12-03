@@ -6,31 +6,53 @@ from app.common.domain.ModuleModel import ModuleModel
 
 
 class AuthTypeStructure(ModuleModel):
-    id: AuthTypeId = None
-    name: AuthTypeName = None
-    client_id: AuthTypeClientId = None
-    client_secret: AuthTypeClientSecret = None
+    _id: AuthTypeId(None)
+    _name: AuthTypeName(None)
+    _client_id: AuthTypeClientId(None)
+    _client_secret: AuthTypeClientSecret(None)
 
     def setId(self, auth_type_id):
-        self.id = AuthTypeId(auth_type_id)
+        self._id = AuthTypeId(auth_type_id)
 
     def setName(self, auth_type_name):
-        self.name = AuthTypeName(auth_type_name)
+        self._name = AuthTypeName(auth_type_name)
 
     def setClientId(self, auth_type_client_id):
-        self.client_id = AuthTypeClientId(auth_type_client_id)
+        self._client_id = AuthTypeClientId(auth_type_client_id)
 
     def setClientSecret(self, auth_type_client_secret):
-        self.client_secret = AuthTypeClientSecret(auth_type_client_secret)
+        self._client_secret = AuthTypeClientSecret(auth_type_client_secret)
 
     def getId(self):
-        return self.id.value
+        return self._id.value
 
     def getName(self):
-        return self.name.value
+        return self._name.value
 
     def getClientId(self):
-        return self.client_id.value
+        return self._client_id.value
 
     def getClientSecret(self):
-        return self.client_secret.value
+        return self._client_secret.value
+
+    def to_dict(self):
+        auth_id = self.getId()
+        name = self.getName()
+        client_id = self.getClientId()
+        client_secret = self.getClientSecret()
+
+        params = dict()
+
+        if auth_id is not None:
+            params['id'] = auth_id
+
+        if name is not None:
+            params['name'] = name
+
+        if client_id is not None:
+            params['client_id'] = client_id
+
+        if client_secret is not None:
+            params['client_secret'] = client_secret
+
+        return params

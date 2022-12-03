@@ -7,30 +7,51 @@ from app.users.domain.UserName import UserName
 
 
 class UserStructure(ModuleModel):
-    id = UserId(None)
-    name = UserName(None)
-    email = UserEmail(None)
+    _id = UserId(None)
+    _name = UserName(None)
+    _email = UserEmail(None)
 
     def setId(self, user_id):
-        self.id = UserId(user_id)
-        if self.id.is_valid() is False:
+        self._id = UserId(user_id)
+        if self._id.is_valid() is False:
             abort(400)
 
     def setName(self, user_name):
-        self.name = UserName(user_name)
-        if self.id.is_valid() is False:
+        self._name = UserName(user_name)
+        if self._id.is_valid() is False:
             abort(400)
 
     def setEmail(self, user_email):
-        self.email = UserEmail(user_email)
-        if self.id.is_valid() is False:
+        self._email = UserEmail(user_email)
+        if self._id.is_valid() is False:
             abort(400)
 
     def getId(self):
-        return self.id.value
+        return self._id.value
 
     def getName(self):
-        return self.name.value
+        return self._name.value
 
     def getEmail(self):
-        return self.email.value
+        return self._email.value
+
+    def to_dict(self):
+        user_id = self.getId()
+        name = self.getName()
+        email = self.getEmail()
+
+        params = dict()
+
+        if user_id is not None:
+            params['id'] = user_id
+
+        if name is not None:
+            params['name'] = name
+
+        if email is not None:
+            params['email'] = email
+
+        return params
+
+
+
