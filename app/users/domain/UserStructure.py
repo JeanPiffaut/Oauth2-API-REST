@@ -1,4 +1,4 @@
-from flask_restful import abort
+from flask import abort
 
 from app.common.domain.ModuleModel import ModuleModel
 from app.users.domain.UserEmail import UserEmail
@@ -18,12 +18,12 @@ class UserStructure(ModuleModel):
 
     def setName(self, user_name):
         self._name = UserName(user_name)
-        if self._id.is_valid() is False:
+        if self._name.is_valid() is False:
             abort(400)
 
     def setEmail(self, user_email):
         self._email = UserEmail(user_email)
-        if self._id.is_valid() is False:
+        if self._email.is_valid() is False:
             abort(400)
 
     def getId(self):

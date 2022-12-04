@@ -1,4 +1,4 @@
-from flask_restful import abort
+from flask import abort
 
 from app.users.domain.UserId import UserId
 from app.users.domain.UserStructure import UserStructure

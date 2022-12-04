@@ -1,4 +1,3 @@
-from app.users.domain.User import User
 from app.users.domain.UserStructure import UserStructure
 from app.users.interface.FirestoreRepository import UserRepository
 

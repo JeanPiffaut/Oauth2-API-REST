@@ -23,14 +23,18 @@ class RepositoryValue:
             self._value = str(obj_val)
 
     def is_valid(self):
+        if self._value is None:
+            return False
+
         try:
             value_type = self._value_type
-            value_type(self._value)
+            value = value_type(self._value)
         except ValueError:
             return False
 
-        if self._length is not None and self._length < len(self._value):
-            return False
+        if self._length is not None:
+            if self._length < len(value):
+                return False
 
         return True
 

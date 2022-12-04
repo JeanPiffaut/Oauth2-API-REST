@@ -14,7 +14,7 @@ class UserRepository(RepositoryModel):
         if fill_email is not None:
             coll = coll.where('email', '==', fill_email)
 
-        return coll.get()
+        return coll.limit(100).get()
 
     def listUsersById(self, fill_id):
         coll = fr.collection(self._collection)
