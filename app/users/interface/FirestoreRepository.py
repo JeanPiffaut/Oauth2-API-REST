@@ -44,14 +44,7 @@ class UserRepository(RepositoryModel):
         if doc.get().exists is False:
             return False
 
-        params = dict()
-        if data['name'] is not None:
-            params['name'] = data['name']
-
-        if data['email'] is not None:
-            params['email'] = data['email']
-
-        result = doc.update(params)
+        result = doc.update(data)
         if result:
             return True
         else:

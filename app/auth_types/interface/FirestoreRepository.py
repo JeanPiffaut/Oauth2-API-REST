@@ -5,14 +5,6 @@ from config.firestore import fr
 class AuthTypeRepository(RepositoryModel):
     _collection = 'AuthTypes'
 
-    def createAuthType(self, data):
-        coll = fr.collection(self._collection)
-        result = coll.add(data)
-        if result:
-            return True
-        else:
-            return False
-
     def listAuthType(self, fill_name=None, client_id=None, client_secret=None):
         coll = fr.collection(self._collection)
 
@@ -29,3 +21,35 @@ class AuthTypeRepository(RepositoryModel):
 
     def listAuthTypeById(self, auth_type_id):
         coll = fr.collection(self._collection)
+        return coll.document(auth_type_id).get()
+
+    def createAuthType(self, data):
+        coll = fr.collection(self._collection)
+        result = coll.add(data)
+        if result:
+            return True
+        else:
+            return False
+
+    def deleteAuthType(self, auth_type_id):
+        coll = fr.collection(self._collection)
+        doc = coll.document(auth_type_id)
+        result = doc.delete()
+        if result:
+            return True
+        else:
+            return False
+
+    def updateAuthType(self, auth_type_id, data):
+        coll = fr.collection(self._collection)
+        doc = coll.document(auth_type_id)
+
+        if doc.get().exists is False:
+            return False
+
+        result = doc.update(data)
+        if result:
+            return True
+        else:
+            return False
+
