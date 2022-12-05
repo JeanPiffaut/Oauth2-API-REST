@@ -33,6 +33,9 @@ class UserRepository(RepositoryModel):
     def deleteUser(self, user_id):
         coll = fr.collection(self._collection)
         doc = coll.document(user_id)
+        if doc.get().exists is False:
+            abort(403, 'The auth type don\'t exist')
+
         result = doc.delete()
         if result:
             return True
