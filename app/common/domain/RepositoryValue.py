@@ -88,7 +88,6 @@ class RepoDateTime(RepositoryValue):
         if self._value is None:
             return None
 
-        value_type = self._value_type
         obj_val = datetime.datetime.strptime(self._value, '%Y-%m-%dT%H:%M:%S')
         return obj_val
 
