@@ -8,10 +8,10 @@ from app.common.domain.ModuleModel import ModuleModel
 
 
 class AuthTypeStructure(ModuleModel):
-    _id: AuthTypeId(None)
-    _name: AuthTypeName(None)
-    _client_id: AuthTypeClientId(None)
-    _client_secret: AuthTypeClientSecret(None)
+    _id = AuthTypeId(None)
+    _name = AuthTypeName(None)
+    _client_id = AuthTypeClientId(None)
+    _client_secret = AuthTypeClientSecret(None)
 
     def setId(self, auth_type_id):
         self._id = AuthTypeId(auth_type_id)
