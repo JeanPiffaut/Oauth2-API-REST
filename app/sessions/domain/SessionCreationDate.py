@@ -1,5 +1,5 @@
-from app.common.domain.RepositoryValue import RepoDatetime
+from app.common.domain.RepositoryValue import RepoDateTime
 
 
-class SessionCreationDate(RepoDatetime):
+class SessionCreationDate(RepoDateTime):
     pass

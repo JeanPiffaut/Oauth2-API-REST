@@ -24,27 +24,27 @@ class SessionStructure(ModuleModel):
 
     def setUserId(self, session_user_id):
         self._user_id = UserId(session_user_id)
-        if self._id.is_valid() is False:
+        if self._user_id.is_valid() is False:
             abort(400)
 
     def setToken(self, session_token):
         self._token = SessionToken(session_token)
-        if self._id.is_valid() is False:
+        if self._token.is_valid() is False:
             abort(400)
 
     def setCreationDate(self, session_creation_date):
         self._creation_date = SessionCreationDate(session_creation_date)
-        if self._id.is_valid() is False:
+        if self._creation_date.is_valid() is False:
             abort(400)
 
     def setLastActivity(self, session_last_activity):
         self._last_activity = SessionLastActivity(session_last_activity)
-        if self._id.is_valid() is False:
+        if self._last_activity.is_valid() is False:
             abort(400)
 
     def setLifeTime(self, session_life_time):
         self._life_time = SessionLifeTime(session_life_time)
-        if self._id.is_valid() is False:
+        if self._life_time.is_valid() is False:
             abort(400)
 
     def getId(self):
