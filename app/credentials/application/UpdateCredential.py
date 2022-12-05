@@ -12,4 +12,4 @@ class UpdateCredential(CredentialStructure):
             abort(400)
 
         repo = CredentialRepository()
-        return repo.deleteCredential(credential_id.value)
+        return repo.updateCredential(credential_id.value, self.to_dict())
