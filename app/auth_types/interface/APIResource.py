@@ -13,9 +13,6 @@ class AuthTypeResource(Resource):
     def get(self):
         types = ShowAuthType()
 
-        if request.args.get('id') is not None:
-            types.setId(request.args.get('id'))
-
         if request.args.get('name') is not None:
             types.setName(request.args.get('name'))
 
@@ -25,7 +22,7 @@ class AuthTypeResource(Resource):
         if request.args.get('client_secret') is not None:
             types.setClientSecret(request.args.get('client_secret'))
 
-        result = types.execute()
+        result = types.execute(request.args.get('id'))
         return response_structure(200, result)
 
     def post(self):

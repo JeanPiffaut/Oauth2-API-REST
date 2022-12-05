@@ -1,3 +1,5 @@
+from flask import abort
+
 from app.common.domain.RepositoryModel import RepositoryModel
 from config.firestore import fr
 
@@ -34,6 +36,9 @@ class AuthTypeRepository(RepositoryModel):
     def deleteAuthType(self, auth_type_id):
         coll = fr.collection(self._collection)
         doc = coll.document(auth_type_id)
+        if doc.get().exists is False:
+            abort(403, 'The document don\'t exist')
+
         result = doc.delete()
         if result:
             return True
@@ -45,7 +50,7 @@ class AuthTypeRepository(RepositoryModel):
         doc = coll.document(auth_type_id)
 
         if doc.get().exists is False:
-            return False
+            abort(403, 'The document don\'t exist')
 
         result = doc.update(data)
         if result:
