@@ -14,3 +14,15 @@ class SessionRepository(RepositoryModel):
             return True
         else:
             return False
+
+    def deleteSession(self, session_id):
+        coll = fr.collection(self._collection)
+        doc = coll.document(session_id)
+        if doc.get().exists is False:
+            abort(400)
+
+        result = doc.delete()
+        if result:
+            return True
+        else:
+            return False
