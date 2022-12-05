@@ -6,7 +6,6 @@ from app.users.interface.FirestoreRepository import UserRepository
 
 
 class UpdateUser(UserStructure):
-
     def execute(self, fill_id):
         user_id = UserId(fill_id)
         if user_id.is_valid() is False:
