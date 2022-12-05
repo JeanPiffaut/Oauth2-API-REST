@@ -1,6 +1,7 @@
 from flask import abort
 
 from app.common.domain.RepositoryModel import RepositoryModel
+from app.credentials.interface.FirestoreRepository import CredentialRepository
 from config.firestore import fr
 
 
@@ -34,6 +35,12 @@ class AuthTypeRepository(RepositoryModel):
             return False
 
     def deleteAuthType(self, auth_type_id):
+        credential_repo = CredentialRepository()
+        credential_list = credential_repo.listCredentials(fill_auth_type_id=auth_type_id)
+        for doc in credential_list:
+            if doc.exists:
+                credential_repo.deleteCredential(doc.id)
+
         coll = fr.collection(self._collection)
         doc = coll.document(auth_type_id)
         if doc.get().exists is False:

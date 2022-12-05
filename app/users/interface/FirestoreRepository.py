@@ -1,6 +1,7 @@
 from flask import abort
 
 from app.common.domain.RepositoryModel import RepositoryModel
+from app.credentials.interface.FirestoreRepository import CredentialRepository
 from config.firestore import fr
 
 
@@ -31,6 +32,12 @@ class UserRepository(RepositoryModel):
             return False
 
     def deleteUser(self, user_id):
+        credential_repo = CredentialRepository()
+        credential_list = credential_repo.listCredentials(fill_user_id=user_id)
+        for doc in credential_list:
+            if doc.exists:
+                credential_repo.deleteCredential(doc.id)
+
         coll = fr.collection(self._collection)
         doc = coll.document(user_id)
         if doc.get().exists is False:
