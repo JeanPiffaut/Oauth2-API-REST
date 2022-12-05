@@ -1,8 +1,6 @@
 from flask import abort
 
-from app.auth_types.interface.FirestoreRepository import AuthTypeRepository
 from app.common.domain.RepositoryModel import RepositoryModel
-from app.users.interface.FirestoreRepository import UserRepository
 from config.firestore import fr
 
 
@@ -32,17 +30,6 @@ class CredentialRepository(RepositoryModel):
 
     def createCredential(self, data):
         coll = fr.collection(self._collection)
-
-        user_repo = UserRepository()
-        user = user_repo.listUsersById(data['user_id'])
-        if user.exists is False:
-            abort(403, 'The user don\'t exist')
-
-        auth_type_repo = AuthTypeRepository()
-        auth_type = auth_type_repo.listAuthTypeById(data['auth_type_id'])
-        if auth_type.exists is False:
-            abort(403, 'The auth type don\'t exist')
-
         result = coll.add(data)
         if result:
             return True
@@ -55,18 +42,6 @@ class CredentialRepository(RepositoryModel):
 
         if doc.get().exists is False:
             abort(403, 'The credential don\'t exist')
-
-        if data['user_id'] is not None:
-            user_repo = UserRepository()
-            user = user_repo.listUsersById(data['user_id'])
-            if user.exists is False:
-                abort(403, 'The user don\'t exist')
-
-        if data['auth_type_id'] is not None:
-            auth_type_repo = AuthTypeRepository()
-            auth_type = auth_type_repo.listAuthTypeById(data['auth_type_id'])
-            if auth_type.exists is False:
-                abort(403, 'The auth type don\'t exist')
 
         result = doc.update(data)
         if result:
