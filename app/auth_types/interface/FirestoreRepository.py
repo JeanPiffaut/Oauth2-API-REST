@@ -4,25 +4,28 @@ from app.common.domain.RepositoryModel import RepositoryModel
 from config.firestore import fr
 
 
-class UserRepository(RepositoryModel):
-    _collection = 'Users'
+class AuthTypeRepository(RepositoryModel):
+    _collection = 'AuthTypes'
 
-    def listUsers(self, fill_name=None, fill_email=None):
+    def listAuthType(self, fill_name=None, client_id=None, client_secret=None):
         coll = fr.collection(self._collection)
 
         if fill_name is not None:
             coll = coll.where('name', '==', fill_name)
 
-        if fill_email is not None:
-            coll = coll.where('email', '==', fill_email)
+        if client_id is not None:
+            coll = coll.where('client_id', '==', client_id)
+
+        if client_secret is not None:
+            coll = coll.where('client_secret', '==', client_secret)
 
         return coll.limit(100).get()
 
-    def listUsersById(self, fill_id):
+    def listAuthTypeById(self, auth_type_id):
         coll = fr.collection(self._collection)
-        return coll.document(fill_id).get()
+        return coll.document(auth_type_id).get()
 
-    def createUser(self, data):
+    def createAuthType(self, data):
         coll = fr.collection(self._collection)
         result = coll.add(data)
         if result:
@@ -30,9 +33,9 @@ class UserRepository(RepositoryModel):
         else:
             return False
 
-    def deleteUser(self, user_id):
+    def deleteAuthType(self, auth_type_id):
         coll = fr.collection(self._collection)
-        doc = coll.document(user_id)
+        doc = coll.document(auth_type_id)
         if doc.get().exists is False:
             abort(403, 'The auth type don\'t exist')
 
@@ -42,15 +45,16 @@ class UserRepository(RepositoryModel):
         else:
             return False
 
-    def updateUser(self, user_id, data):
+    def updateAuthType(self, auth_type_id, data):
         coll = fr.collection(self._collection)
-        doc = coll.document(user_id)
+        doc = coll.document(auth_type_id)
 
         if doc.get().exists is False:
-            abort(403, 'The user don\'t exist')
+            abort(403, 'The auth type don\'t exist')
 
         result = doc.update(data)
         if result:
             return True
         else:
             return False
+

@@ -1,5 +1,7 @@
 from typing import List
 
+from flask_restful import abort
+
 
 class ModuleModel:
     _errors: List = []
@@ -19,3 +21,6 @@ class ModuleModel:
     @error.setter
     def error(self, val):
         self._errors.append(val)
+
+    def to_dict(self):
+        abort(401)

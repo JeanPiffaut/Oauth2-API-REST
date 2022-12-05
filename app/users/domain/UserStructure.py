@@ -1,50 +1,57 @@
+from flask import abort
+
+from app.common.domain.ModuleModel import ModuleModel
 from app.users.domain.UserEmail import UserEmail
 from app.users.domain.UserId import UserId
 from app.users.domain.UserName import UserName
 
 
-class UserStructure:
-    id: UserId = None
-    name: UserName = None
-    email: UserEmail = None
+class UserStructure(ModuleModel):
+    _id = UserId(None)
+    _name = UserName(None)
+    _email = UserEmail(None)
 
     def setId(self, user_id):
-        self.id = UserId(user_id)
+        self._id = UserId(user_id)
+        if self._id.is_valid() is False:
+            abort(400)
 
     def setName(self, user_name):
-        self.name = UserName(user_name)
+        self._name = UserName(user_name)
+        if self._name.is_valid() is False:
+            abort(400)
 
     def setEmail(self, user_email):
-        self.email = UserEmail(user_email)
+        self._email = UserEmail(user_email)
+        if self._email.is_valid() is False:
+            abort(400)
 
     def getId(self):
-        if self.id is not None:
-            return self.id.value
-        else:
-            return None
+        return self._id.value
 
     def getName(self):
-        if self.name is not None:
-            return self.name.value
-        else:
-            return None
+        return self._name.value
 
     def getEmail(self):
-        if self.email is not None:
-            return self.email.value
-        else:
-            return None
+        return self._email.value
 
     def to_dict(self):
-        user_dict = {}
+        user_id = self.getId()
+        name = self.getName()
+        email = self.getEmail()
 
-        if self.id is not None:
-            user_dict['id'] = self.getId()
+        params = dict()
 
-        if self.name is not None:
-            user_dict['name'] = self.getName()
+        if user_id is not None:
+            params['id'] = user_id
 
-        if self.email is not None:
-            user_dict['email'] = self.getEmail()
+        if name is not None:
+            params['name'] = name
 
-        return user_dict
+        if email is not None:
+            params['email'] = email
+
+        return params
+
+
+

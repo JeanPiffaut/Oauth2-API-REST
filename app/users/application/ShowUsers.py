@@ -1,3 +1,5 @@
+from flask import abort
+
 from app.users.domain.User import User
 from app.users.domain.UserId import UserId
 from app.users.domain.UserStructure import UserStructure
@@ -12,7 +14,7 @@ class ShowUsers(UserStructure):
         if fill_id is not None:
             user_id = UserId(fill_id)
             if user_id.is_valid() is False:
-                return False
+                abort(400)
 
             result = repo.listUsersById(user_id.value)
             if result.exists:
