@@ -50,7 +50,7 @@ class AuthTypeRepository(RepositoryModel):
         doc = coll.document(auth_type_id)
 
         if doc.get().exists is False:
-            abort(403, 'The document don\'t exist')
+            abort(403, 'The auth type don\'t exist')
 
         result = doc.update(data)
         if result:

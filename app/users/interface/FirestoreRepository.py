@@ -44,7 +44,7 @@ class UserRepository(RepositoryModel):
         doc = coll.document(user_id)
 
         if doc.get().exists is False:
-            abort(403, 'The document don\'t exist')
+            abort(403, 'The user don\'t exist')
 
         result = doc.update(data)
         if result:
