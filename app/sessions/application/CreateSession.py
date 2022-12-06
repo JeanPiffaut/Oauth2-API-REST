@@ -12,7 +12,7 @@ class CreateSession(SessionStructure):
         token = hashlib.md5(user_id.encode()).hexdigest()
         self.setToken(token)
 
-        now = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
+        now = datetime.now().strftime(config('DATE_TIME_FORMAT'))
         self.setCreationDate(now)
         self.setLastActivity(now)
 

@@ -1,6 +1,8 @@
 import datetime
 from dataclasses import dataclass
 
+from decouple import config
+
 
 @dataclass
 class RepositoryValue:
@@ -88,7 +90,7 @@ class RepoDateTime(RepositoryValue):
         if self._value is None:
             return None
 
-        obj_val = datetime.datetime.strptime(self._value, '%Y-%m-%dT%H:%M:%S')
+        obj_val = datetime.datetime.strptime(self._value, config('DATE_TIME_FORMAT'))
         return obj_val
 
     @value.setter
@@ -101,7 +103,7 @@ class RepoDateTime(RepositoryValue):
             return False
 
         try:
-            datetime.datetime.strptime(self._value, '%Y-%m-%dT%H:%M:%S')
+            datetime.datetime.strptime(self._value, config('DATE_TIME_FORMAT'))
         except ValueError:
             return False
 
