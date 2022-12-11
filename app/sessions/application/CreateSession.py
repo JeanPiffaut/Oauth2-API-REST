@@ -9,7 +9,7 @@ from app.sessions.interface.FirestoreRepository import SessionRepository
 
 class CreateSession(SessionStructure):
     def execute(self):
-        token = hashlib.md5(str(uuid.uuid4()).encode()).hexdigest()
+        token = hashlib.md5(uuid.uuid4().__str__().encode()).hexdigest()
         self.setToken(token)
 
         now = datetime.now().strftime(config('DATE_TIME_FORMAT'))
