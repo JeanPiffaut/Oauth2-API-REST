@@ -1,5 +1,6 @@
 import hashlib
-from datetime import datetime, timedelta
+import uuid
+from datetime import datetime
 from decouple import config
 
 from app.sessions.domain.SessionStructure import SessionStructure
@@ -8,8 +9,7 @@ from app.sessions.interface.FirestoreRepository import SessionRepository
 
 class CreateSession(SessionStructure):
     def execute(self):
-        user_id = self.getUserId()
-        token = hashlib.md5(user_id.encode()).hexdigest()
+        token = hashlib.md5(str(uuid.uuid4()).encode()).hexdigest()
         self.setToken(token)
 
         now = datetime.now().strftime(config('DATE_TIME_FORMAT'))
