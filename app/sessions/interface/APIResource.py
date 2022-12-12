@@ -3,6 +3,7 @@ from flask import request, abort
 
 from app import response_structure
 from app.sessions.application.CreateSession import CreateSession
+from app.sessions.application.DeleteSession import DeleteSession
 from app.sessions.application.ShowSessions import ShowSessions
 from app.sessions.application.UpdateSession import UpdateSession
 
@@ -66,4 +67,12 @@ class SessionResource(Resource):
             return response_structure(500)
 
     def delete(self):
-        return response_structure(200)
+        if request.args.get('id') is None:
+            abort(400)
+
+        delete = DeleteSession()
+        result = delete.execute(request.args.get('id'))
+        if result:
+            return response_structure(200)
+        else:
+            return response_structure(500)
