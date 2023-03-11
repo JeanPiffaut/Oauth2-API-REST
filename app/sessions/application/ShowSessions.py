@@ -6,6 +6,8 @@ from app.sessions.domain.SessionStructure import SessionStructure
 from app.sessions.interface.FirestoreRepository import SessionRepository
 from decouple import config
 
+from app.users.interface.FirestoreRepository import UserRepository
+
 
 class ShowSessions(SessionStructure):
     def execute(self, fill_id=None):
@@ -38,3 +40,9 @@ class ShowSessions(SessionStructure):
                     sessions.append(params)
 
         return sessions
+
+    def setUserId(self, user_id):
+        user_repo = UserRepository()
+        result = user_repo.listUsersById(user_id)
+
+        self.setUserRef(result.reference)

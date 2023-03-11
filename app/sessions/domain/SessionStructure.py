@@ -22,7 +22,7 @@ class SessionStructure(ModuleModel):
         if self._id.is_valid() is False:
             abort(400)
 
-    def setUserId(self, session_user_id):
+    def setUserRef(self, session_user_id):
         self._user_id = UserRef(session_user_id)
         if self._user_id.is_valid() is False:
             abort(400)

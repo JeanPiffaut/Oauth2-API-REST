@@ -5,6 +5,7 @@ from decouple import config
 
 from app.sessions.domain.SessionStructure import SessionStructure
 from app.sessions.interface.FirestoreRepository import SessionRepository
+from app.users.interface.FirestoreRepository import UserRepository
 
 
 class CreateSession(SessionStructure):
@@ -22,3 +23,9 @@ class CreateSession(SessionStructure):
         repo.createSession(self.to_dict())
 
         return True
+
+    def setUserId(self, user_id):
+        user_repo = UserRepository()
+        result = user_repo.listUsersById(user_id)
+
+        self.setUserRef(result.reference)

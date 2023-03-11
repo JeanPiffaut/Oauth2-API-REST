@@ -3,6 +3,7 @@ from flask import abort
 from app.sessions.domain.SessionId import SessionId
 from app.sessions.domain.SessionStructure import SessionStructure
 from app.sessions.interface.FirestoreRepository import SessionRepository
+from app.users.interface.FirestoreRepository import UserRepository
 
 
 class UpdateSession(SessionStructure):
@@ -13,3 +14,9 @@ class UpdateSession(SessionStructure):
 
         repo = SessionRepository()
         return repo.updateSession(session_id.value, self.to_dict())
+
+    def setUserId(self, user_id):
+        user_repo = UserRepository()
+        result = user_repo.listUsersById(user_id)
+
+        self.setUserRef(result.reference)
