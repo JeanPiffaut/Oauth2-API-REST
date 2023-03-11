@@ -18,5 +18,7 @@ class UpdateSession(SessionStructure):
     def setUserId(self, user_id):
         user_repo = UserRepository()
         result = user_repo.listUsersById(user_id)
+        if result.exists is False:
+            abort(400)
 
         self.setUserRef(result.reference)

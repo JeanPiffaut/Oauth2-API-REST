@@ -2,6 +2,7 @@ import hashlib
 import uuid
 from datetime import datetime
 from decouple import config
+from flask import abort
 
 from app.sessions.domain.SessionStructure import SessionStructure
 from app.sessions.interface.FirestoreRepository import SessionRepository
@@ -27,5 +28,7 @@ class CreateSession(SessionStructure):
     def setUserId(self, user_id):
         user_repo = UserRepository()
         result = user_repo.listUsersById(user_id)
+        if result.exists is False:
+            abort(400)
 
         self.setUserRef(result.reference)

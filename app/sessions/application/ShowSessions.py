@@ -26,9 +26,11 @@ class ShowSessions(SessionStructure):
                 params = session.to_dict()
                 params['creation_date'] = params['creation_date'].strftime(config('DATE_TIME_FORMAT'))
                 params['last_activity'] = params['last_activity'].strftime(config('DATE_TIME_FORMAT'))
+                params['user_id'] = params['user'].id
+                params.pop('user')
                 sessions.append(params)
         else:
-            result = repo.listSessions(self.getUserId(), self.getToken(), self.getCreationDate(),
+            result = repo.listSessions(self.getUserRef(), self.getToken(), self.getCreationDate(),
                                        self.getLastActivity(), self.getLifeTime())
             for doc in result:
                 if doc.exists:
@@ -37,6 +39,8 @@ class ShowSessions(SessionStructure):
                     params = session.to_dict()
                     params['creation_date'] = params['creation_date'].strftime(config('DATE_TIME_FORMAT'))
                     params['last_activity'] = params['last_activity'].strftime(config('DATE_TIME_FORMAT'))
+                    params['user_id'] = params['user'].id
+                    params.pop('user')
                     sessions.append(params)
 
         return sessions
@@ -44,5 +48,7 @@ class ShowSessions(SessionStructure):
     def setUserId(self, user_id):
         user_repo = UserRepository()
         result = user_repo.listUsersById(user_id)
+        if result.exists is False:
+            abort(400)
 
         self.setUserRef(result.reference)

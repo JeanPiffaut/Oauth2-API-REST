@@ -11,7 +11,7 @@ from app.sessions.domain.UserRef import UserRef
 
 class SessionStructure(ModuleModel):
     _id = SessionId(None)
-    _user_id = UserRef(None)
+    _user = UserRef(None)
     _token = SessionToken(None)
     _creation_date = SessionCreationDate(None)
     _last_activity = SessionLastActivity(None)
@@ -23,9 +23,7 @@ class SessionStructure(ModuleModel):
             abort(400)
 
     def setUserRef(self, session_user_id):
-        self._user_id = UserRef(session_user_id)
-        if self._user_id.is_valid() is False:
-            abort(400)
+        self._user = UserRef(session_user_id)
 
     def setToken(self, session_token):
         self._token = SessionToken(session_token)
@@ -50,8 +48,8 @@ class SessionStructure(ModuleModel):
     def getId(self):
         return self._id.value
 
-    def getUserId(self):
-        return self._user_id.value
+    def getUserRef(self):
+        return self._user.value
 
     def getToken(self):
         return self._token.value
@@ -67,7 +65,7 @@ class SessionStructure(ModuleModel):
 
     def to_dict(self):
         session_id = self.getId()
-        user_id = self.getUserId()
+        user = self.getUserRef()
         token = self.getToken()
         creation_date = self.getCreationDate()
         last_activity = self.getLastActivity()
@@ -78,8 +76,8 @@ class SessionStructure(ModuleModel):
         if session_id is not None:
             params['id'] = session_id
 
-        if user_id is not None:
-            params['user_id'] = user_id
+        if user is not None:
+            params['user'] = user
 
         if token is not None:
             params['token'] = token

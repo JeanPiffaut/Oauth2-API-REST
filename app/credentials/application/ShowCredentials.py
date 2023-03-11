@@ -26,16 +26,19 @@ class ShowCredentials(CredentialStructure):
             if result.exists:
                 credential = Credential()
                 credential.from_firestore_document(result)
-                credentials.append(credential.to_dict())
+                params = credential.to_dict()
+                params['auth_type_id'] = params['auth_type'].id
+                params.pop('auth_type')
+                credentials.append(params)
         else:
             result = repo.listCredentials(self.getUserId(), self.getAuthTypeRef(), self.getUsername(), self.getToken())
             for doc in result:
                 if doc.exists:
                     credential = Credential()
                     credential.from_firestore_document(doc)
-                    credential_dict = credential.to_dict()
-                    credential_dict['auth_type_id'] = credential_dict['auth_type'].id
-                    credential_dict.pop('auth_type')
-                    credentials.append(credential_dict)
+                    params = credential.to_dict()
+                    params['auth_type_id'] = params['auth_type'].id
+                    params.pop('auth_type')
+                    credentials.append(params)
 
         return credentials
