@@ -7,11 +7,11 @@ from config.firestore import fr
 class CredentialRepository(RepositoryModel):
     _collection = 'Credentials'
 
-    def listCredentials(self, fill_user_id=None, fill_auth_type=None, fill_username=None, fill_token=None):
+    def listCredentials(self, fill_user=None, fill_auth_type=None, fill_username=None, fill_token=None):
         coll = fr.collection(self._collection)
 
-        if fill_user_id is not None:
-            coll = coll.where('user_id', '==', fill_user_id)
+        if fill_user is not None:
+            coll = coll.where('user', '==', fill_user)
 
         if fill_auth_type is not None:
             coll = coll.where('auth_type', '==', fill_auth_type)

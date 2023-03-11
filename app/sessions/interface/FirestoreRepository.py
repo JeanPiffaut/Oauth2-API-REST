@@ -7,12 +7,12 @@ from config.firestore import fr
 class SessionRepository(RepositoryModel):
     _collection = 'Sessions'
 
-    def listSessions(self, fill_user_id=None, fill_token=None, fill_creation_date=None, fill_last_activity=None,
+    def listSessions(self, fill_user=None, fill_token=None, fill_creation_date=None, fill_last_activity=None,
                      fill_life_time=None):
         coll = fr.collection(self._collection)
 
-        if fill_user_id is not None:
-            coll = coll.where('user_id', '==', fill_user_id)
+        if fill_user is not None:
+            coll = coll.where('user', '==', fill_user)
 
         if fill_token is not None:
             coll = coll.where('token', '==', fill_token)
