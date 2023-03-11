@@ -6,12 +6,12 @@ from app.sessions.domain.SessionId import SessionId
 from app.sessions.domain.SessionLastActivity import SessionLastActivity
 from app.sessions.domain.SessionLifeTime import SessionLifeTime
 from app.sessions.domain.SessionToken import SessionToken
-from app.sessions.domain.UserId import UserId
+from app.sessions.domain.UserRef import UserRef
 
 
 class SessionStructure(ModuleModel):
     _id = SessionId(None)
-    _user_id = UserId(None)
+    _user_id = UserRef(None)
     _token = SessionToken(None)
     _creation_date = SessionCreationDate(None)
     _last_activity = SessionLastActivity(None)
@@ -23,7 +23,7 @@ class SessionStructure(ModuleModel):
             abort(400)
 
     def setUserId(self, session_user_id):
-        self._user_id = UserId(session_user_id)
+        self._user_id = UserRef(session_user_id)
         if self._user_id.is_valid() is False:
             abort(400)
 
