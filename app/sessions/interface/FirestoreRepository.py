@@ -63,3 +63,15 @@ class SessionRepository(RepositoryModel):
             return True
         else:
             return False
+
+    def delete_by_user_id(self, user_id):
+        coll = fr.collection(self._collection)
+        result = coll.where('user_id', '==', user_id).get()
+        for doc in result:
+            doc.reference.delete()
+
+        result = coll.where('user_id', '==', user_id).get()
+        if len(result) == 0:
+            return True
+        else:
+            return False
