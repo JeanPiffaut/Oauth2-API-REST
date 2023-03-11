@@ -1,7 +1,7 @@
 from flask import abort
 
 from app.common.domain.ModuleModel import ModuleModel
-from app.credentials.domain.AuthTypeId import AuthTypeId
+from app.credentials.domain.AuthTypeRef import AuthTypeRef
 from app.credentials.domain.CredentialId import CredentialId
 from app.credentials.domain.CredentialToken import CredentialToken
 from app.credentials.domain.CredentialUsername import CredentialUsername
@@ -11,7 +11,7 @@ from app.credentials.domain.UserId import UserId
 class CredentialStructure(ModuleModel):
     _id = CredentialId(None)
     _user_id = UserId(None)
-    _auth_type_id = AuthTypeId(None)
+    _auth_type = AuthTypeRef(None)
     _username = CredentialUsername(None)
     _token = CredentialToken(None)
 
@@ -25,10 +25,8 @@ class CredentialStructure(ModuleModel):
         if self._user_id.is_valid() is False:
             abort(400)
 
-    def setAuthTypeId(self, credential_auth_type_id):
-        self._auth_type_id = AuthTypeId(credential_auth_type_id)
-        if self._auth_type_id.is_valid() is False:
-            abort(400)
+    def setAuthTypeRef(self, credential_auth_type_id):
+        self._auth_type = AuthTypeRef(credential_auth_type_id)
 
     def setUsername(self, credential_username):
         self._username = CredentialUsername(credential_username)
@@ -46,8 +44,8 @@ class CredentialStructure(ModuleModel):
     def getUserId(self):
         return self._user_id.value
 
-    def getAuthTypeId(self):
-        return self._auth_type_id.value
+    def getAuthTypeRef(self):
+        return self._auth_type.value
 
     def getUsername(self):
         return self._username.value
@@ -58,7 +56,7 @@ class CredentialStructure(ModuleModel):
     def to_dict(self):
         credential_id = self.getId()
         user_id = self.getUserId()
-        auth_id = self.getAuthTypeId()
+        auth_type = self.getAuthTypeRef()
         username = self.getUsername()
         token = self.getToken()
 
@@ -70,8 +68,8 @@ class CredentialStructure(ModuleModel):
         if user_id is not None:
             params['user_id'] = user_id
 
-        if auth_id is not None:
-            params['auth_type_id'] = auth_id
+        if auth_type is not None:
+            params['auth_type'] = auth_type
 
         if username is not None:
             params['username'] = username
