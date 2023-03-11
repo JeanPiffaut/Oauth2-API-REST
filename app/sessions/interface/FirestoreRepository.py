@@ -1,3 +1,5 @@
+import pytz
+from decouple import config
 from flask import abort
 
 from app.common.domain.RepositoryModel import RepositoryModel
@@ -34,6 +36,14 @@ class SessionRepository(RepositoryModel):
 
     def createSession(self, data):
         coll = fr.collection(self._collection)
+
+        tz = pytz.timezone(config('TIMEZONE'))
+        print(data['creation_date'])
+        data['creation_date'] = data['creation_date'].replace(tzinfo=tz).timestamp()
+        print(data['creation_date'])
+        print(data['last_activity'])
+        data['last_activity'] = data['last_activity'].timestamp()
+        print(data['last_activity'])
         result = coll.add(data)
         if result:
             return True
