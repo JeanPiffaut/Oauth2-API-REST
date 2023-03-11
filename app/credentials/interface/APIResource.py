@@ -16,8 +16,8 @@ class CredentialResource(Resource):
         if request.args.get('user_id') is not None:
             show.setUserId(request.args.get('user_id'))
 
-        if request.args.get('auth_type_id') is not None:
-            show.setAuthTypeId(request.args.get('auth_type_id'))
+        if request.args.get('auth_type') is not None:
+            show.setAuthTypeId(request.args.get('auth_type'))
 
         if request.args.get('username') is not None:
             show.setUsername(request.args.get('username'))

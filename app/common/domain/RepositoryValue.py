@@ -108,3 +108,17 @@ class RepoDateTime(RepositoryValue):
             return False
 
         return True
+
+
+@dataclass
+class RepoFireReference(RepositoryValue):
+    def __init__(self, obj_val):
+        self.value = obj_val
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, obj_val):
+        self._value = obj_val
