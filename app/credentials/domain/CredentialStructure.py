@@ -1,11 +1,11 @@
 from flask import abort
 
-from app.auth_types.domain.AuthTypeId import AuthTypeId
 from app.common.domain.ModuleModel import ModuleModel
+from app.credentials.domain.AuthTypeId import AuthTypeId
 from app.credentials.domain.CredentialId import CredentialId
 from app.credentials.domain.CredentialToken import CredentialToken
 from app.credentials.domain.CredentialUsername import CredentialUsername
-from app.users.domain.UserId import UserId
+from app.credentials.domain.UserId import UserId
 
 
 class CredentialStructure(ModuleModel):
