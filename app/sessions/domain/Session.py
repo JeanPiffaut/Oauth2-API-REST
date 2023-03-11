@@ -8,7 +8,7 @@ from app.sessions.domain.SessionStructure import SessionStructure
 class Session(SessionStructure):
     def from_firestore_document(self, document):
         self.setId(document.id)
-        self.setUserId(document.get('user_id'))
+        self.setUserRef(document.get('user'))
         self.setToken(document.get('token'))
 
         creation_date = datetime.datetime.fromtimestamp(document.get('creation_date').timestamp()).strftime(

@@ -6,6 +6,8 @@ from app.sessions.domain.SessionStructure import SessionStructure
 from app.sessions.interface.FirestoreRepository import SessionRepository
 from decouple import config
 
+from app.users.interface.FirestoreRepository import UserRepository
+
 
 class ShowSessions(SessionStructure):
     def execute(self, fill_id=None):
@@ -24,9 +26,11 @@ class ShowSessions(SessionStructure):
                 params = session.to_dict()
                 params['creation_date'] = params['creation_date'].strftime(config('DATE_TIME_FORMAT'))
                 params['last_activity'] = params['last_activity'].strftime(config('DATE_TIME_FORMAT'))
+                params['user_id'] = params['user'].id
+                params.pop('user')
                 sessions.append(params)
         else:
-            result = repo.listSessions(self.getUserId(), self.getToken(), self.getCreationDate(),
+            result = repo.listSessions(self.getUserRef(), self.getToken(), self.getCreationDate(),
                                        self.getLastActivity(), self.getLifeTime())
             for doc in result:
                 if doc.exists:
@@ -35,6 +39,16 @@ class ShowSessions(SessionStructure):
                     params = session.to_dict()
                     params['creation_date'] = params['creation_date'].strftime(config('DATE_TIME_FORMAT'))
                     params['last_activity'] = params['last_activity'].strftime(config('DATE_TIME_FORMAT'))
+                    params['user_id'] = params['user'].id
+                    params.pop('user')
                     sessions.append(params)
 
         return sessions
+
+    def setUserId(self, user_id):
+        user_repo = UserRepository()
+        result = user_repo.listUsersById(user_id)
+        if result.exists is False:
+            abort(404, "User not found")
+
+        self.setUserRef(result.reference)

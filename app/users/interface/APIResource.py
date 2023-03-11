@@ -75,7 +75,7 @@ class UserResource(Resource):
                 delete_session.execute(session['id'])
 
             list_credentials = ShowCredentials()
-            list_credentials.setUserId(user_id)
+            list_credentials.setUserRef(user_id)
             credentials = list_credentials.execute()
             for credential in credentials:
                 delete_credential = DeleteCredential()
