@@ -5,12 +5,12 @@ from app.credentials.domain.AuthTypeRef import AuthTypeRef
 from app.credentials.domain.CredentialId import CredentialId
 from app.credentials.domain.CredentialToken import CredentialToken
 from app.credentials.domain.CredentialUsername import CredentialUsername
-from app.credentials.domain.UserId import UserId
+from app.credentials.domain.UserRef import UserRef
 
 
 class CredentialStructure(ModuleModel):
     _id = CredentialId(None)
-    _user_id = UserId(None)
+    _user = UserRef(None)
     _auth_type = AuthTypeRef(None)
     _username = CredentialUsername(None)
     _token = CredentialToken(None)
@@ -20,10 +20,8 @@ class CredentialStructure(ModuleModel):
         if self._id.is_valid() is False:
             abort(400)
 
-    def setUserId(self, credential_user_id):
-        self._user_id = UserId(credential_user_id)
-        if self._user_id.is_valid() is False:
-            abort(400)
+    def setUserRef(self, credential_user_id):
+        self._user = UserRef(credential_user_id)
 
     def setAuthTypeRef(self, credential_auth_type_id):
         self._auth_type = AuthTypeRef(credential_auth_type_id)
@@ -41,8 +39,8 @@ class CredentialStructure(ModuleModel):
     def getId(self):
         return self._id.value
 
-    def getUserId(self):
-        return self._user_id.value
+    def getUserRef(self):
+        return self._user.value
 
     def getAuthTypeRef(self):
         return self._auth_type.value
@@ -55,7 +53,7 @@ class CredentialStructure(ModuleModel):
 
     def to_dict(self):
         credential_id = self.getId()
-        user_id = self.getUserId()
+        user = self.getUserRef()
         auth_type = self.getAuthTypeRef()
         username = self.getUsername()
         token = self.getToken()
@@ -65,8 +63,8 @@ class CredentialStructure(ModuleModel):
         if credential_id is not None:
             params['id'] = credential_id
 
-        if user_id is not None:
-            params['user_id'] = user_id
+        if user is not None:
+            params['user'] = user
 
         if auth_type is not None:
             params['auth_type'] = auth_type

@@ -29,6 +29,6 @@ class CreateSession(SessionStructure):
         user_repo = UserRepository()
         result = user_repo.listUsersById(user_id)
         if result.exists is False:
-            abort(400)
+            abort(404, "User not found")
 
         self.setUserRef(result.reference)
