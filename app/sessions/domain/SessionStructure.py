@@ -6,7 +6,7 @@ from app.sessions.domain.SessionId import SessionId
 from app.sessions.domain.SessionLastActivity import SessionLastActivity
 from app.sessions.domain.SessionLifeTime import SessionLifeTime
 from app.sessions.domain.SessionToken import SessionToken
-from app.users.domain.UserId import UserId
+from app.sessions.domain.UserId import UserId
 
 
 class SessionStructure(ModuleModel):
