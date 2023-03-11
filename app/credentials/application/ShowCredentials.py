@@ -33,9 +33,9 @@ class ShowCredentials(CredentialStructure):
                 if doc.exists:
                     credential = Credential()
                     credential.from_firestore_document(doc)
-                    dict = credential.to_dict()
-                    dict['auth_type_id'] = dict['auth_type'].id
-                    dict.pop('auth_type')
-                    credentials.append(dict)
+                    credential_dict = credential.to_dict()
+                    credential_dict['auth_type_id'] = credential_dict['auth_type'].id
+                    credential_dict.pop('auth_type')
+                    credentials.append(credential_dict)
 
         return credentials
