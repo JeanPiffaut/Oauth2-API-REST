@@ -1,13 +1,82 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css">
+    <style>
+        .form-card {
+            margin: auto;
+            max-width: 400px;
+        }
+    </style>
 </head>
 <body>
-Hola mundos
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-half is-offset-one-quarter">
+                <div class="card form-card">
+                    <div class="card-content">
+                        <h1 class="title has-text-centered">Iniciar sesión</h1>
+                        <form id="login-form" action="#" method="POST">
+                            <div class="field">
+                                <label class="label">Usuario</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="username" placeholder="Ingrese su usuario">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Contraseña</label>
+                                <div class="control">
+                                    <input class="input" type="password" name="password"
+                                           placeholder="Ingrese su contraseña">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <button id="login-btn" class="button is-primary is-fullwidth">Iniciar sesión
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    const loginForm = document.getElementById('login-form');
+    const loginButton = document.getElementById('login-btn');
+
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = e.target.username.value;
+        const password = e.target.password.value;
+        loginButton.disabled = true;
+        loginButton.innerHTML = 'Esperando...';
+        fetch('http://example.com/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username, password})
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Usuario ingresado:', username);
+                    window.location.href = 'dashboard.html';
+                } else {
+                    throw new Error('Credenciales incorrectas');
+                }
+            })
+            .catch(error => {
+                alert(error.message);
+                loginButton.disabled = false;
+                loginButton.innerHTML = 'Iniciar sesión';
+            });
+    });
+</script>
 </body>
 </html>
