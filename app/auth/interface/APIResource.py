@@ -28,7 +28,7 @@ class APIResource(Resource):
 
         if args['password'] is None:
             abort(400)
-        print(args)
+
         if args['auth_type'] is None:
             auth_type = config('DEFAULT_AUTH_TYPE')
         else:

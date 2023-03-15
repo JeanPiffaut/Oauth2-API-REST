@@ -17,11 +17,9 @@ class CredentialRepository(RepositoryModel):
             coll = coll.where('auth_type', '==', fill_auth_type)
 
         if fill_username is not None:
-            print(fill_username)
             coll = coll.where('username', '==', fill_username)
 
         if fill_token is not None:
-            print(fill_token)
             coll = coll.where('token', '==', fill_token)
 
         return coll.limit(100).get()
