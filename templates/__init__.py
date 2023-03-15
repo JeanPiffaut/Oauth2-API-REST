@@ -1,0 +1,5 @@
+GOOGLE_APPLICATION_CREDENTIALS="/Users/jeanpiffaut/PycharmProjects/Outh2-API-REST/venv/oauth-2-api-rest-9c6505cc1a30.json"
+TOKEN_LIFE_TIME="8000"
+TIMEZONE="America/Santiago"
+DATE_TIME_FORMAT="%Y-%m-%dT%H:%M:%S"
+DEFAULT_BLUEPRINT="auth.auth_resource"
