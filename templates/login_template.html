@@ -68,10 +68,11 @@
                     password: formData.get('password')
                 })
             });
-
+            const data = await response.json()
+            console.log(data);
             if (response.ok) {
                 // Successful login, redirect to dashboard
-                window.location.href = '/dashboard';
+                //window.location.href = '/dashboard';
             } else {
                 // Failed login, show error message
                 alert('Invalid username or password');
@@ -81,7 +82,7 @@
             alert('An error occurred while logging in');
         } finally {
             // Reset form and hide loading spinner
-            form.reset();
+            //form.reset();
             submitText.classList.remove('d-none');
             loadingSpinner.classList.add('d-none');
         }

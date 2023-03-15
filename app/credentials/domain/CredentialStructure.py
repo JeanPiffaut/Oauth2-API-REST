@@ -1,3 +1,5 @@
+import hashlib
+
 from flask import abort
 
 from app.common.domain.ModuleModel import ModuleModel
@@ -35,6 +37,10 @@ class CredentialStructure(ModuleModel):
         self._token = CredentialToken(credential_token)
         if self._token.is_valid() is False:
             abort(400)
+
+    def setPassword(self, password):
+        hash_object = hashlib.sha256(password.encode('utf-8'))
+        return hash_object.hexdigest()
 
     def getId(self):
         return self._id.value
