@@ -12,7 +12,7 @@ api = Flask(__name__, template_folder='templates')
 
 if __name__ == "__main__":
     api.config.from_object(setting_module)
-    #Api(api, catch_all_404s=True)
+    Api(api, catch_all_404s=True)
     api.url_map.strict_slashes = False
 
     api.register_blueprint(auth_bp)
