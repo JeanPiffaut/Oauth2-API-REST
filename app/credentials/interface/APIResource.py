@@ -17,7 +17,7 @@ class CredentialResource(Resource):
             show.setUserId(request.args.get('user_id'))
 
         if request.args.get('auth_type') is not None:
-            show.setAuthTypeId(request.args.get('auth_type'))
+            show.setAuthType(request.args.get('auth_type'))
 
         if request.args.get('username') is not None:
             show.setUsername(request.args.get('username'))
@@ -34,7 +34,7 @@ class CredentialResource(Resource):
         if request.args.get('user_id') is None:
             abort(400)
 
-        if request.args.get('auth_type_id') is None:
+        if request.args.get('auth_type') is None:
             abort(400)
 
         if request.args.get('username') is None:
@@ -44,7 +44,7 @@ class CredentialResource(Resource):
             abort(400)
 
         create.setUserId(request.args.get('user_id'))
-        create.setAuthTypeId(request.args.get('auth_type_id'))
+        create.setAuthType(request.args.get('auth_type'))
         create.setUsername(request.args.get('username'))
         create.setToken(request.args.get('token'))
         result = create.execute()
@@ -62,8 +62,8 @@ class CredentialResource(Resource):
         if request.args.get('user_id') is not None:
             update.setUserId(request.args.get('user_id'))
 
-        if request.args.get('auth_type_id') is not None:
-            update.setAuthTypeId(request.args.get('auth_type_id'))
+        if request.args.get('auth_type') is not None:
+            update.setAuthType(request.args.get('auth_type'))
 
         if request.args.get('username') is not None:
             update.setUsername(request.args.get('username'))

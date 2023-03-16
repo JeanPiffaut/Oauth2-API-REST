@@ -3,7 +3,7 @@ import hashlib
 from flask import abort
 
 from app.common.domain.ModuleModel import ModuleModel
-from app.credentials.domain.AuthTypeRef import AuthTypeRef
+from app.credentials.domain.CredentialAuthType import CredentialAuthType
 from app.credentials.domain.CredentialId import CredentialId
 from app.credentials.domain.CredentialToken import CredentialToken
 from app.credentials.domain.CredentialUsername import CredentialUsername
@@ -13,7 +13,7 @@ from app.credentials.domain.UserRef import UserRef
 class CredentialStructure(ModuleModel):
     _id = CredentialId(None)
     _user = UserRef(None)
-    _auth_type = AuthTypeRef(None)
+    _auth_type = CredentialAuthType(None)
     _username = CredentialUsername(None)
     _token = CredentialToken(None)
 
@@ -25,8 +25,10 @@ class CredentialStructure(ModuleModel):
     def setUserRef(self, credential_user_id):
         self._user = UserRef(credential_user_id)
 
-    def setAuthTypeRef(self, credential_auth_type_id):
-        self._auth_type = AuthTypeRef(credential_auth_type_id)
+    def setAuthType(self, credential_auth_type_id):
+        self._auth_type = CredentialAuthType(credential_auth_type_id)
+        if self._auth_type.is_valid() is False:
+            abort(400)
 
     def setUsername(self, credential_username):
         self._username = CredentialUsername(credential_username)
@@ -48,7 +50,7 @@ class CredentialStructure(ModuleModel):
     def getUserRef(self):
         return self._user.value
 
-    def getAuthTypeRef(self):
+    def getAuthType(self):
         return self._auth_type.value
 
     def getUsername(self):
@@ -60,7 +62,7 @@ class CredentialStructure(ModuleModel):
     def to_dict(self):
         credential_id = self.getId()
         user = self.getUserRef()
-        auth_type = self.getAuthTypeRef()
+        auth_type = self.getAuthType()
         username = self.getUsername()
         token = self.getToken()
 

@@ -4,20 +4,10 @@ from app.credentials.domain.Credential import Credential
 from app.credentials.domain.CredentialId import CredentialId
 from app.credentials.domain.CredentialStructure import CredentialStructure
 from app.credentials.interface.FirestoreRepository import CredentialRepository
-from app.auth_types.interface.FirestoreRepository import AuthTypeRepository
 from app.users.interface.FirestoreRepository import UserRepository
 
 
 class ShowCredentials(CredentialStructure):
-
-    def setAuthTypeId(self, credential_auth_type_id):
-        auth_repo = AuthTypeRepository()
-        result = auth_repo.listAuthTypeById(credential_auth_type_id)
-        if result.exists is False:
-            abort(404, "Auth Type not found")
-
-        self.setAuthTypeRef(result.reference)
-
     def setUserId(self, user_id):
         user_repo = UserRepository()
         result = user_repo.listUsersById(user_id)
@@ -45,7 +35,7 @@ class ShowCredentials(CredentialStructure):
                 params.pop('auth_type')
                 credentials.append(params)
         else:
-            result = repo.listCredentials(self.getUserRef(), self.getAuthTypeRef(), self.getUsername(), self.getToken())
+            result = repo.listCredentials(self.getUserRef(), self.getAuthType(), self.getUsername(), self.getToken())
             for doc in result:
                 if doc.exists:
                     credential = Credential()
